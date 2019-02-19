@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [6.4.0-preview] - 2019-XX-XX
 
+### Added
+- Added error helpbox when trying to use a sub volume component that require the current HDRenderPipelineAsset to support a feature that it is not supporting.
+
 ## [6.3.0-preview] - 2019-02-18
 
 ### Added
