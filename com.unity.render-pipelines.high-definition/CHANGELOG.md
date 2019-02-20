@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [6.4.0-preview] - 2019-XX-XX
 
+### Added
+- Added an unit selection dropdown next to shutter speed (camera)
+
 ## [6.3.0-preview] - 2019-02-18
 
 ### Added
