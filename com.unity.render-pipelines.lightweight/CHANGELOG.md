@@ -4,18 +4,23 @@ All notable changes to this package will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [6.4.0] - 2019-XX-XX
 
-## [6.3.0] - 2019-02-18
+## [5.6.0] - 2019-XX-XX
 
-## [6.2.0] - 2019-02-15
-
+## [5.5.0] - 2019-02-18
 ### Changed
 - Code refactor: all macros with ARGS have been swapped with macros with PARAM. This is because the ARGS macros were incorrectly named.
 
-## [6.1.0] - 2019-02-13
+## [5.4.0] - 2019-02-11
+### Fixed
+- Fixed the SRP Batcher, so it now works with MacOS and iOS.
 
-## [6.0.0] - 2019-02-23
+## [5.3.1] - 2019-01-28
+### Fixed
+- Fixed Per-object reflection probes.
+
+## [5.3.0] - 2019-01-28
+
 ### Added
 - You can now implement a custom renderer for LWRP. To do so, implement an `IRendererData` that contains all resources used in rendering. Then create an `IRendererSetup` that creates and queues `ScriptableRenderPass`. Change the renderer type either in the Pipeline Asset or in the Camera Inspector.
 - LWRP now uses the Unity recorder extension. You can use this to capture the output of Cameras.
@@ -30,7 +35,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - LWRP now includes version defines for both C# and Shaders in the format of `LWRP_X_Y_Z_OR_NEWER`. For example, `LWRP_5_3_0_OR_NEWER` defines version 5.3.0.
 - The Terrain Lit Shader now samples Spherical Harmonics if you haven't baked any lightmaps for terrain.
 - Added a __Priority__ option, which you can use to tweak the rendering order. This is similar to render queue in the built-in render pipeline. These Shaders now have this option: Lit, Simple Lit, Baked Lit, Unlit, and all three Particle Shaders.
-- Added support for overriding terrain detail rendering shaders, via the render pipeline editor resources asset.
+
 
 ### Changed
 - You can now only initialize a camera by setting a Background Type. The supported options are Skybox, Solid Color, and Don't Care.

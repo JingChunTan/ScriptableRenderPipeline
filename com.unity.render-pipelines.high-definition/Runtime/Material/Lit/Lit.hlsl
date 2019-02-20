@@ -98,6 +98,13 @@ TEXTURE2D(_ShadowMaskTexture); // Alias for shadow mask, so we don't need to kno
 #define GBUFFER_LIT_ANISOTROPIC      4
 #define GBUFFER_LIT_IRIDESCENCE      5 // TODO
 
+#define CLEAR_COAT_IOR 1.5
+#define CLEAR_COAT_IETA (1.0 / CLEAR_COAT_IOR) // IETA is the inverse eta which is the ratio of IOR of two interface
+#define CLEAR_COAT_F0 0.04 // IORToFresnel0(CLEAR_COAT_IOR)
+#define CLEAR_COAT_ROUGHNESS 0.01
+#define CLEAR_COAT_PERCEPTUAL_SMOOTHNESS RoughnessToPerceptualSmoothness(CLEAR_COAT_ROUGHNESS)
+#define CLEAR_COAT_PERCEPTUAL_ROUGHNESS RoughnessToPerceptualRoughness(CLEAR_COAT_ROUGHNESS)
+
 // It is safe to include this file after the G-Buffer macros above.
 #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/MaterialGBufferMacros.hlsl"
 

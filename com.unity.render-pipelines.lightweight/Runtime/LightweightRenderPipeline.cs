@@ -121,7 +121,7 @@ namespace UnityEngine.Rendering.LWRP
                 foreach (var beforeCamera in camera.GetComponents<IBeforeCameraRender>())
                     beforeCamera.ExecuteBeforeCameraRender(this, renderContext, camera);
 
-                RenderSingleCamera(this, renderContext, camera);
+                RenderSingleCamera(this, renderContext, camera, camera.GetComponent<IRendererSetup>());
 
                 EndCameraRendering(renderContext, camera);
             }

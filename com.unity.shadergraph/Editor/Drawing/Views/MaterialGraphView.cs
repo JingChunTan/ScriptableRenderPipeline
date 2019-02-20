@@ -293,7 +293,9 @@ namespace UnityEditor.ShaderGraph.Drawing
         {
             if (onConvertToSubgraphClick == null) return DropdownMenuAction.Status.Hidden;
             if (graph.isSubGraph) return DropdownMenuAction.Status.Hidden;
-            return selection.OfType<IShaderNodeView>().Any(v => v.node != null) ? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Hidden;
+
+            return selection.OfType<MaterialNodeView>().Any(v => v.node != null) ? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Hidden;
+
         }
 
         void ConvertToSubgraph(DropdownMenuAction action)
@@ -304,7 +306,9 @@ namespace UnityEditor.ShaderGraph.Drawing
         string SerializeGraphElementsImplementation(IEnumerable<GraphElement> elements)
         {
             var groups = elements.OfType<ShaderGroup>().Select(x => x.userData);
-            var nodes = elements.OfType<IShaderNodeView>().Select(x => (AbstractMaterialNode)x.node);
+
+            var nodes = elements.OfType<MaterialNodeView>().Select(x => (AbstractMaterialNode)x.node);
+
             var edges = elements.OfType<Edge>().Select(x => x.userData).OfType<IEdge>();
             var properties = selection.OfType<BlackboardField>().Select(x => x.userData as AbstractShaderProperty);
 
@@ -345,7 +349,9 @@ namespace UnityEditor.ShaderGraph.Drawing
             }
 
             graph.owner.RegisterCompleteObjectUndo(operationName);
-            graph.RemoveElements(selection.OfType<IShaderNodeView>().Where(v => !(v.node is SubGraphOutputNode)).Select(x => (AbstractMaterialNode)x.node),
+
+            graph.RemoveElements(selection.OfType<MaterialNodeView>().Where(v => !(v.node is SubGraphOutputNode)).Select(x => (AbstractMaterialNode)x.node),
+
                 selection.OfType<Edge>().Select(x => x.userData).OfType<IEdge>(),
                 selection.OfType<ShaderGroup>().Select(x => x.userData));
 

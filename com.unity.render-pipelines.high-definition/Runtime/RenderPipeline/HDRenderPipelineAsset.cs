@@ -242,26 +242,6 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             }
         }
 
-        // Note: This function is HD specific
-        public Material GetDefaultDecalMaterial()
-        {
-            return renderPipelineEditorResources == null ? null : renderPipelineEditorResources.materials.defaultDecalMat;
-        }
-
-        // Note: This function is HD specific
-        public Material GetDefaultMirrorMaterial()
-        {
-            return renderPipelineEditorResources == null ? null : renderPipelineEditorResources.materials.defaultMirrorMat;
-        }
-
-        public override Material defaultTerrainMaterial
-        {
-            get
-            {
-                return renderPipelineEditorResources == null ? null : renderPipelineEditorResources.materials.defaultTerrainMat;
-            }
-        }
-
         // Array structure that allow us to manipulate the set of defines that the HD render pipeline needs
         List<string> defineArray = new List<string>();
 

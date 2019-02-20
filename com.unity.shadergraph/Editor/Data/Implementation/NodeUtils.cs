@@ -16,8 +16,6 @@ namespace UnityEditor.Graphing
 
     static class NodeUtils
     {
-        public static string docURL = "https://github.com/Unity-Technologies/ScriptableRenderPipeline/tree/master/com.unity.shadergraph/Documentation%7E/";
-
         public static void SlotConfigurationExceptionIfBadConfiguration(AbstractMaterialNode node, IEnumerable<int> expectedInputSlots, IEnumerable<int> expectedOutputSlots)
         {
             var missingSlots = new List<int>();

@@ -336,6 +336,10 @@ void ScreenSpaceReflectionsReprojection(uint2 positionSS : SV_DispatchThreadID)
     float prevExposure = GetPreviousExposureMultiplier();
     color /= prevExposure + (prevExposure == 0.0); // zero-div guard
 
+    // Inverse pre-exposure
+    float prevExposure = GetPreviousExposureMultiplier();
+    color /= prevExposure + (prevExposure == 0.0); // zero-div guard
+
     // Use premultiplied alpha.
     _SsrLightingTextureRW[positionSS] = float4(color, 1) * opacity;
 }

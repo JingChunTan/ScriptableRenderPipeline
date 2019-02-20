@@ -4,66 +4,92 @@ All notable changes to this package will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [6.4.0-preview] - 2019-XX-XX
+## [5.6.0-preview] - 2019-XX-XX
 
-## [6.3.0-preview] - 2019-02-18
+## [5.5.0-preview] - 2019-02-18
 
 ### Added
+- Added help box listing feature supported in a given HDRenderPipelineAsset alongs with the drawbacks implied.
+- Added support for post-processing anti-aliasing in the Scene View (FXAA and TAA). These can be set in Preferences.
+- Added emissive property for decal material (non-shader graph)
+- Added cascade visualizer, supporting disabled handles when not overriding.
+- Added support of motion vector for transparent object (as replace)
 - Added emissive property for shader graph decals
 - Added a diffusion profile override volume so the list of diffusion profile assets to use can be chanaged without affecting the HDRP asset
 - Added a "Stop NaNs" option on cameras and in the Scene View preferences.
 - Added metric display option in HDShadowSettings and improve clamping
 
-### Changed
-- Diffusion profiles are now limited to one per asset and can be referenced in materials, shader graphs and vfx graphs. Materials will be upgraded automatically except if they are using a shader graph, in this case it will display an error message.
-
 ### Fixed
-- Fixed decals in forward
+- Fixed a few UI bugs with the color grading curves.
+- Fixed "Post Processing" in the scene view not toggling post-processing effects.
 - Fixed issue with stencil not correctly setup for various master node and shader for the depth pass, motion vector pass and GBuffer/Forward pass
 - Fixed SRP batcher and metal
-
-### Fixed
-- Fixed an issue where scissor render state leaking from the editor code caused partially black rendering
-
-### Changed
-- When a lit material has a clear coat mask that is not null, we now use the clear coat roughness to compute the screen space reflection.
-
-## [6.2.0-preview] - 2019-02-15
-
-### Added
-- Added help box listing feature supported in a given HDRenderPipelineAsset alongs with the drawbacks implied.
-- Added cascade visualizer, supporting disabled handles when not overriding.
-
-### Fixed
 - Fixed post processing with stereo double-wide
 - Fixed issue with Metal: Use sign bit to find the cache type instead of lowest bit.
 - Fixed invalid state when creating a planar reflection for the first time
-- Fix FrameSettings's LitShaderMode not restrained by supported LitShaderMode regression.
+- Fixed FrameSettings's LitShaderMode not restrained by supported LitShaderMode regression.
+- Fixed decals in forward
+- Fixed Lightlayers and shadow. Now Lightlayers correctly support exclusion of shadows.
+- Fixed an issue where scissor render state leaking from the editor code caused partially black rendering
 
 ### Changed
+- Removed unsupported Clear Depth checkbox in Camera inspector	
 - The default value roughness value for the clearcoat has been changed from 0.03 to 0.01
 - Update default value of based color for master node
 - Update Fabric Charlie Sheen lighting model - Remove Fresnel component that wasn't part of initial model + Remap smoothness to [0.0 - 0.6] range for more artist friendly parameter
-
-### Changed
+- Updated the toggle for advanced mode in inspectors.
+- Diffusion profiles are now limited to one per asset and can be referenced in materials, shader graphs and vfx graphs. Materials will be upgraded automatically except if they are using a shader graph, in this case it will display an error message.
 - Code refactor: all macros with ARGS have been swapped with macros with PARAM. This is because the ARGS macros were incorrectly named.
 
-## [6.1.0-preview] - 2019-02-13
+## [5.4.0-preview] - 2019-02-11
 
 ### Added
-- Added support for post-processing anti-aliasing in the Scene View (FXAA and TAA). These can be set in Preferences.
-- Added emissive property for decal material (non-shader graph)
+- Added support for "After Post-Process" render pass for unlit shader
+- Added support for textured rectangular area lights
+- Added stereo instancing macros to MSAA shaders
+- Added fade factor for decal projectors.
+- Added stereo instancing macros to most shaders used in VR
+- Added multi edition support for HDRenderPipelineAsset
 
 ### Fixed
-- Fixed a few UI bugs with the color grading curves.
-- Fixed "Post Processing" in the scene view not toggling post-processing effects
+- Fixed Decals when rendering multiple camera in a single frame
+- Fixed cascade shadow count in shader
+- Fixed issue with Stacklit shader with Haze effect
+- Fixed an issue with the max sample count for the TAA
+- Fixed post-process guard band for XR
+- Fixed exposure of emissive of Unlit
+- Fixed depth only and motion vector pass for Unlit not working correctly with MSAA
+- Fixed an issue with stencil buffer copy causing unnecessary compute dispatches for lighting
+- Fixed multi edition issue in FrameSettings
+- Fixed issue with SRP batcher and DebugDisplay variant of lit shader
+- Fixed issue with debug material mode not doing alpha test
+- Fixed "Attempting to draw with missing UAV bindings" errors on Vulkan
+- Fixed pre-exposure incorrectly apply to preview
+- Fixed issue with duplicate 3D texture in 3D texture altas of volumetric
+- Fixed Camera rendering order (base on the depth parameter)
 - Fixed bake only object with flag `ReflectionProbeStaticFlag` when baking a `ReflectionProbe`
+- Fixed "Attempting to draw with missing UAV bindings" errors on Vulkan.
 
 ### Changed
-- Removed unsupported Clear Depth checkbox in Camera inspector
-- Updated the toggle for advanced mode in inspectors.
+- Temporal Antialiasing optimization for Xbox One X
+- Parameter depthSlice on SetRenderTarget functions now defaults to -1 to bind the entire resource
+- Rename SampleCameraDepth() functions to LoadCameraDepth() and SampleCameraDepth(), same for SampleCameraColor() functions
+- Improved Motion Blur quality. 
+- Update stereo frame settings values for single-pass instancing and double-wide
+- Rearrange FetchDepth functions to prepare for stereo-instancing
+- Remove unused _ComputeEyeIndex
+- Updated HDRenderPipelineAsset inspector
 
-## [6.0.0-preview] - 2019-02-23
+## [5.3.1-preview] - 2019-01-28
+
+### Added
+- Added software dynamic resolution support
+
+### Fixed
+- Fixed a case of ambient lighting flickering because of previews
+
+## [5.3.0-preview] - 2019-01-28
+
 
 ### Added
 - Added new API to perform a camera rendering
@@ -96,19 +122,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added Material validator in Render Pipeline Debug
 - Added code to future support of DXR (not enabled)
 - Added support of multiviewport
+- Added stereo instancing macros to a few shaders
 - Added HDRenderPipeline.RequestSkyEnvironmentUpdate function to force an update from script when sky is set to OnDemand
 - Added a Lighting and BackLighting slots in Lit, StackLit, Fabric and Hair master nodes
-- Added support for overriding terrain detail rendering shaders, via the render pipeline editor resources asset
 - Added xrInstancing flag support to RTHandle
 - Added support for cullmask for decal projectors
-- Added software dynamic resolution support
-- Added support for "After Post-Process" render pass for unlit shader
-- Added support for textured rectangular area lights
-- Added stereo instancing macros to MSAA shaders
-- Added support for Quarter Res Raytraced Reflections (not enabled)
-- Added fade factor for decal projectors.
-- Added stereo instancing macros to most shaders used in VR
-- Added multi edition support for HDRenderPipelineAsset
+
 
 ### Fixed
 - Fixed logic to disable FPTL with stereo rendering
@@ -164,25 +183,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed a typo in Static Lighting Sky component UI
 - Fixed issue with incorrect reset of RenderQueue when switching shader in inspector GUI
 - Fixed issue with variant stripper stripping incorrectly some variants
-- Fixed a case of ambient lighting flickering because of previews
-- Fixed Decals when rendering multiple camera in a single frame
-- Fixed cascade shadow count in shader
-- Fixed issue with Stacklit shader with Haze effect
-- Fixed an issue with the max sample count for the TAA
-- Fixed post-process guard band for XR
-- Fixed exposure of emissive of Unlit
-- Fixed depth only and motion vector pass for Unlit not working correctly with MSAA
-- Fixed an issue with stencil buffer copy causing unnecessary compute dispatches for lighting
-- Fixed multi edition issue in FrameSettings
-- Fixed issue with SRP batcher and DebugDisplay variant of lit shader
-- Fixed issue with debug material mode not doing alpha test
-- Fixed "Attempting to draw with missing UAV bindings" errors on Vulkan
-- Fixed pre-exposure incorrectly apply to preview
-- Fixed issue with duplicate 3D texture in 3D texture altas of volumetric?
-- Fixed Camera rendering order (base on the depth parameter)
-- Fixed shader graph decals not being cropped by gizmo
-- Fixed "Attempting to draw with missing UAV bindings" errors on Vulkan.
-
 
 ### Changed
 - ColorPyramid compute shader passes is swapped to pixel shader passes on platforms where the later is faster (Nintendo Switch).
@@ -205,15 +205,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update build light list shader code to support 32 threads in wavefronts on Switch
 - LayeredLit layers' foldout are now grouped in one main foldout per layer
 - Shadow alpha clip can now be enabled on lit shader and haor shader enven for opaque
-- Temporal Antialiasing optimization for Xbox One X
-- Parameter depthSlice on SetRenderTarget functions now defaults to -1 to bind the entire resource
-- Rename SampleCameraDepth() functions to LoadCameraDepth() and SampleCameraDepth(), same for SampleCameraColor() functions
-- Improved Motion Blur quality. 
-- Update stereo frame settings values for single-pass instancing and double-wide
-- Rearrange FetchDepth functions to prepare for stereo-instancing
-- Remove unused _ComputeEyeIndex
-- Updated HDRenderPipelineAsset inspector
-- Re-enable SRP batcher for metal
 
 ## [5.2.0-preview] - 2018-11-27
 

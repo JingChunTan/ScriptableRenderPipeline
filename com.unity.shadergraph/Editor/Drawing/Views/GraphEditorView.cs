@@ -291,7 +291,9 @@ namespace UnityEditor.ShaderGraph.Drawing
             if (graphViewChange.elementsToRemove != null)
             {
                 m_Graph.owner.RegisterCompleteObjectUndo("Remove Elements");
-                m_Graph.RemoveElements(graphViewChange.elementsToRemove.OfType<IShaderNodeView>().Select(v => v.node),
+
+                m_Graph.RemoveElements(graphViewChange.elementsToRemove.OfType<MaterialNodeView>().Select(v => (AbstractMaterialNode)v.node),
+
                     graphViewChange.elementsToRemove.OfType<Edge>().Select(e => (IEdge)e.userData),
                     graphViewChange.elementsToRemove.OfType<ShaderGroup>().Select(g => g.userData));
                 foreach (var edge in graphViewChange.elementsToRemove.OfType<Edge>())

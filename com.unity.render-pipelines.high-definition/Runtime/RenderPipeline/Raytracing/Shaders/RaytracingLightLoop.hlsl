@@ -95,11 +95,8 @@ void LightLoop( float3 V, PositionInputs posInput, PreLightData preLightData, BS
     int i = 0;
     for (i = 0; i < _DirectionalLightCount; ++i)
     {
-		if (IsMatchingLightLayer(_DirectionalLightDatas[i].lightLayers, builtinData.renderingLayers))
-		{
-			DirectLighting lighting = EvaluateBSDF_Directional(context, V, posInput, preLightData, _DirectionalLightDatas[i], bsdfData, builtinData);
-			AccumulateDirectLighting(lighting, aggregateLighting);
-		}
+        DirectLighting lighting = EvaluateBSDF_Directional(context, V, posInput, preLightData, _DirectionalLightDatas[i], bsdfData, builtinData);
+        AccumulateDirectLighting(lighting, aggregateLighting);
     }
 
     // Indices of the subranges to process
@@ -127,11 +124,9 @@ void LightLoop( float3 V, PositionInputs posInput, PreLightData preLightData, BS
         #else
         LightData lightData = _LightDatasRT[i];
         #endif
-		if (IsMatchingLightLayer(lightData.lightLayers, builtinData.renderingLayers))
-		{
-			DirectLighting lighting = EvaluateBSDF_Punctual(context, V, posInput, preLightData, lightData, bsdfData, builtinData);
-			AccumulateDirectLighting(lighting, aggregateLighting);
-		}
+
+        DirectLighting lighting = EvaluateBSDF_Punctual(context, V, posInput, preLightData, lightData, bsdfData, builtinData);
+        AccumulateDirectLighting(lighting, aggregateLighting);
     }
 
     #ifdef USE_LIGHT_CLUSTER
@@ -158,7 +153,6 @@ void LightLoop( float3 V, PositionInputs posInput, PreLightData preLightData, BS
         {
             lightData.lightType = GPULIGHTTYPE_TUBE; // Enforce constant propagation
 
-			if (IsMatchingLightLayer(lightData.lightLayers, builtinData.renderingLayers))
             {
                 DirectLighting lighting = EvaluateBSDF_Area(context, V, posInput, preLightData, lightData, bsdfData, builtinData);
                 AccumulateDirectLighting(lighting, aggregateLighting);
@@ -175,7 +169,6 @@ void LightLoop( float3 V, PositionInputs posInput, PreLightData preLightData, BS
         {
             lightData.lightType = GPULIGHTTYPE_RECTANGLE; // Enforce constant propagation
 
-			if (IsMatchingLightLayer(lightData.lightLayers, builtinData.renderingLayers))
             {
                 DirectLighting lighting = EvaluateBSDF_Area(context, V, posInput, preLightData, lightData, bsdfData, builtinData);
                 AccumulateDirectLighting(lighting, aggregateLighting);

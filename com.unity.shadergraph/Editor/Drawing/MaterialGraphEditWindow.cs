@@ -229,7 +229,8 @@ namespace UnityEditor.ShaderGraph.Drawing
             graphObject.RegisterCompleteObjectUndo("Convert To Subgraph");
             var graphView = graphEditorView.graphView;
 
-            var nodes = graphView.selection.OfType<IShaderNodeView>().Where(x => !(x.node is PropertyNode)).Select(x => x.node as AbstractMaterialNode).ToArray();
+            var nodes = graphView.selection.OfType<MaterialNodeView>().Where(x => !(x.node is PropertyNode)).Select(x => x.node as AbstractMaterialNode).ToArray();
+
             var bounds = Rect.MinMaxRect(float.PositiveInfinity, float.PositiveInfinity, float.NegativeInfinity, float.NegativeInfinity);
             foreach (var node in nodes)
             {
@@ -250,7 +251,9 @@ namespace UnityEditor.ShaderGraph.Drawing
             var copyPasteGraph = new CopyPasteGraph(
                     graphView.graph.guid,
                     graphView.selection.OfType<ShaderGroup>().Select(x => x.userData),
-                    graphView.selection.OfType<IShaderNodeView>().Where(x => !(x.node is PropertyNode)).Select(x => x.node as AbstractMaterialNode),
+
+                    graphView.selection.OfType<MaterialNodeView>().Where(x => !(x.node is PropertyNode)).Select(x => x.node as AbstractMaterialNode),
+
                     graphView.selection.OfType<Edge>().Select(x => x.userData as IEdge),
                     graphView.selection.OfType<BlackboardField>().Select(x => x.userData as AbstractShaderProperty),
                     metaProperties);
@@ -430,7 +433,8 @@ namespace UnityEditor.ShaderGraph.Drawing
             }
 
             graphObject.graph.RemoveElements(
-                graphView.selection.OfType<IShaderNodeView>().Select(x => x.node as AbstractMaterialNode),
+                graphView.selection.OfType<MaterialNodeView>().Select(x => x.node as AbstractMaterialNode),
+
                 Enumerable.Empty<IEdge>(),
                 Enumerable.Empty<GroupData>());
             graphObject.graph.ValidateGraph();

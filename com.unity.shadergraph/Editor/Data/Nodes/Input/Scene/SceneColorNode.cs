@@ -20,6 +20,10 @@ namespace UnityEditor.ShaderGraph
 
         public override bool hasPreview { get { return false; } }
 
+        public override string documentationURL
+        {
+            get { return "https://github.com/Unity-Technologies/ShaderGraph/wiki/Scene-Color-Node"; }
+        }
 
         protected override MethodInfo GetFunctionToConvert()
         {
